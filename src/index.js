@@ -10,136 +10,125 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {
+  blackwindow,
+  captain,
+  flash,
+  ironman,
+  spiderman,
+  strange,
+  suppergirl,
+  wanda,
+  wonderwoman,
+  yasuo,
+} from './images';
+import UserSearch from './components/UserSearch';
+import UserSuggest from './components/UserSuggest';
 
 const users = [
   {
     name: 'captain',
     mutual_friend_count: 24,
-    image: require('./images/captain.jpg'),
+    image: captain,
   },
   {
     name: 'ironman',
     mutual_friend_count: 24,
-    image: require('./images/ironman.jpeg'),
+    image: ironman,
   },
   {
-    name: 'blackwindow.jpeg',
+    name: 'blackwindow',
     mutual_friend_count: 24,
-    image: require('./images/blackwidow.jpg'),
+    image: blackwindow,
   },
   {
     name: 'spiderman',
     mutual_friend_count: 24,
-    image: require('./images/spiderman.jpeg'),
+    image: spiderman,
   },
   {
     name: 'yasuo',
     mutual_friend_count: 24,
-    image: require('./images/yasuo.jpg'),
+    image: yasuo,
   },
   {
     name: 'wanda',
     mutual_friend_count: 24,
-    image: require('./images/wanda.jpg'),
+    image: wanda,
   },
   {
     name: 'strange',
     mutual_friend_count: 24,
-    image: require('./images/strange.jpg'),
+    image: strange,
   },
   {
     name: 'wonderwoman',
     mutual_friend_count: 24,
-    image: require('./images/wonderwoman.jpg'),
+    image: wonderwoman,
   },
   {
     name: 'suppergirl',
     mutual_friend_count: 24,
-    image: require('./images/spiderman.jpeg'),
+    image: suppergirl,
   },
   {
     name: 'flash',
     mutual_friend_count: 24,
-    image: require('./images/spiderman.jpeg'),
+    image: flash,
   },
 ];
 
 export default class Home extends Component {
   userSearchList = [...users]
     .sort(() => Math.random() - Math.random())
-    .slice(0, 8);
-
+    .slice(0, 5);
   render() {
-    console.log(this.userSearchList);
     return (
-      <View>
-        <View style={{marginBottom: 20}}>
+      <View style={styles.container}>
+        <View style={{flex: 1}}>
           <View style={styles.titleContainer}>
-            <Entypo name="back-in-time" size={30} />
+            <Entypo name="back-in-time" size={30} color={'black'} />
             <Text style={styles.title}>Danh sách tìm kiếm gần đây</Text>
           </View>
-          <View>
-            <FlatList
-              data={this.userSearchList}
-              horizontal
-              style={{flexGrow: 0}}
-              renderItem={({user}) => <UserSearch user={user} />}
-              keyExtractor={(user, index) => `${user.name}_${index}`}
-            />
-          </View>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={this.userSearchList}
+            renderItem={({item}) => <UserSearch user={item} />}
+            keyExtractor={item => item.name}
+          />
         </View>
-        <View>
+        <View style={{flex: 4}}>
           <View style={styles.titleContainer}>
-            <Ionicons name="ios-people" size={30} />
+            <Ionicons name="ios-people" size={30} color={'black'} />
             <Text style={styles.title}>Gợi ý kết bạn</Text>
           </View>
+          <ScrollView>
+            {users.map((user, index) => (
+              <UserSuggest user={user} key={index} />
+            ))}
+          </ScrollView>
         </View>
-      </View>
-    );
-  }
-}
-
-class UserSearch extends Component {
-  render() {
-    const {user} = this.props;
-    console.log(this.props);
-    return (
-      <View>
-        {/* <Image
-          style={styles.userImage}
-          source={user.image}
-        /> */}
-        <Text>{user}</Text>
-      </View>
-    );
-  }
-}
-
-class UserSuggest extends Component {
-  render() {
-    return (
-      <View>
-        <Image />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    padding: 12,
+    flex: 1,
+  },
   titleContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 5,
   },
   title: {
     fontWeight: 'bold',
     fontSize: 18,
     marginLeft: 6,
-  },
-  userImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 70 / 2,
+    color: 'black',
   },
 });
