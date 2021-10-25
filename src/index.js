@@ -1,11 +1,19 @@
-import React, { Component } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import React, {Component} from 'react';
+import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {angry, care, haha, like, sad, love} from './images/index';
 
 export default class Home extends Component {
-  images = ["angry", "care", "haha", "like", "love", "sad"];
-  state = { index: 1 };
+  images = [
+    {name: 'angry', image: angry},
+    {name: 'care', image: care},
+    {name: 'haha', image: haha},
+    {name: 'like', image: like},
+    {name: 'sad', image: sad},
+    {name: 'love', image: love},
+  ];
+  state = {index: 1};
 
-  handlePress = (index) => this.setState({ index });
+  handlePress = index => this.setState({index});
 
   render() {
     return (
@@ -13,17 +21,16 @@ export default class Home extends Component {
         <Text style={styles.title}>Bạn đang cảm thấy như thế nào?</Text>
         <Image
           style={styles.activeEmoji}
-          source={require(`./images/${this.images[this.state.index]}.png`)}
+          source={this.images[this.state.index].image}
         />
         <View style={styles.emojiList}>
           {this.images.map((emoji, index) => (
             <TouchableOpacity
               key={index}
-              onPress={() => this.handlePress(index)}
-            >
+              onPress={() => this.handlePress(index)}>
               <Image
                 style={styles.emoji}
-                source={require(`./images/${emoji}.png`)}
+                source={emoji.image}
               />
             </TouchableOpacity>
           ))}
@@ -35,13 +42,13 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
+    height: '100%',
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 18,
   },
   activeEmoji: {
@@ -50,11 +57,11 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   emojiList: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
     paddingHorizontal: 25,
   },
   emoji: {
