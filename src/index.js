@@ -1,22 +1,14 @@
-import React, {Component, useEffect} from 'react';
-import {
-  SafeAreaView,
-  Text,
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
+import React, {Component} from 'react';
+import {Text, View, StyleSheet} from 'react-native';
 import Header from './components/Header';
 import {
   nikePegasus36,
   nikeMetcon5Black,
   nikeZoomKobe1Proto,
 } from './assets/images/index';
-import {Svg, Polygon} from 'react-native-svg';
 import axios from 'axios';
+import Category from './components/Category';
+import ListProduct from './components/ListProduct';
 
 export default class Home extends Component {
   categories = [
@@ -26,9 +18,11 @@ export default class Home extends Component {
   ];
   state = {
     products: [],
+    loading: false,
   };
 
   componentDidMount() {
+    this.setState({loading: true});
     axios({
       url: 'http://svcy3.myclass.vn/api/Product',
       method: 'GET',
@@ -37,128 +31,25 @@ export default class Home extends Component {
         const products = data.content;
         this.setState({products});
       })
-      .catch(error => console.log(error));
+      .finally(() => this.setState({loading: false}));
   }
-
-  renderCategory = item => (
-    <TouchableOpacity
-      onPress={() => console.log('clicked')}
-      style={{
-        width: 150,
-        height: 120,
-        marginBottom: 20,
-        borderRadius: 15,
-        marginRight: 30,
-      }}>
-      <Text style={{fontSize: 14, color: '#BEC1D2', fontWeight: 'bold'}}>{item.name}</Text>
-
-      <View
-        style={{
-          flex: 1,
-          borderRadius: 10,
-          justifyContent: 'flex-end',
-          marginTop: 8,
-          backgroundColor: item.color,
-        }}
-      />
-
-      <View
-        style={{
-          position: 'absolute',
-          top: 18,
-          right: 0,
-          width: '95%',
-          height: '100%',
-        }}>
-        <Svg height="100%" width="100%">
-          <Polygon points="10,0 200,0 160,60" fill="white" />
-        </Svg>
-      </View>
-      <Image
-        source={item.image}
-        resizeMode="contain"
-        style={{
-          position: 'absolute',
-          top: 20,
-          left: -5,
-          width: '110%',
-          height: 80,
-          transform: [{rotate: '-15deg'}],
-        }}
-      />
-    </TouchableOpacity>
-  );
-
-  renderListProduct = ({image, name, price}) => (
-    <TouchableOpacity
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        height: 100,
-      }}>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-        }}>
-        <Image
-          source={{uri: image}}
-          resizeMode="contain"
-          style={{
-            width: 130,
-            height: 90,
-          }}
-        />
-      </View>
-      <View style={{flex: 1.1, height: '100%', justifyContent: 'center'}}>
-        <Text style={{color: '#BEC1D2', fontSize: 16}}>{name}</Text>
-        <Text style={{fontWeight: 'bold', fontSize: 18}}>${price}</Text>
-      </View>
-    </TouchableOpacity>
-  );
 
   render() {
     return (
       <View style={{flex: 1}}>
-        <View style={{flex: 0.75}}>
+        <View style={styles.headerContainer}>
           <Header />
         </View>
 
-        <View
-          style={{
-            flex: 4,
-            paddingHorizontal: 20,
-            paddingTop: 10,
-          }}>
-          <Text style={{flex: 1, fontSize: 24, fontWeight: 'bold'}}>
-            Category
-          </Text>
-          <View style={{flex: 4}}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={this.categories}
-              keyExtractor={(item, index) => index + item.color}
-              renderItem={({item}) => this.renderCategory(item)}
-            />
-          </View>
+        <View style={styles.categoryContainer}>
+          <Category categories={this.categories} />
         </View>
 
-        <View
-          style={{
-            flex: 8,
-            backgroundColor: '#F2F2F2',
-            marginVertical: 2,
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-          }}>
-          <FlatList
-            horizontal={false}
-            style={{marginTop: 20}}
-            data={this.state.products}
-            keyExtractor={(item, index) => index + item.image}
-            renderItem={({item}) => this.renderListProduct(item)}
-          />
+        <View style={styles.productsContainer}>
+          {this.state.loading && (
+            <Text style={styles.loadingText}>Loading...</Text>
+          )}
+          <ListProduct products={this.state.products} />
         </View>
       </View>
     );
@@ -166,5 +57,19 @@ export default class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {},
+  headerContainer: {flex: 0.75},
+  categoryContainer: {flex: 4, paddingHorizontal: 20, paddingTop: 10},
+  productsContainer: {
+    flex: 8,
+    backgroundColor: '#F2F2F2',
+    marginVertical: 2,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+  },
+  loadingText: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
 });
