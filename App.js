@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import Home from './src';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,24 +24,6 @@ export default function App() {
   ];
 
   return (
-    <View style={styles.container}>
-      {colors.map((item, index) => (
-        <View
-          key={index}
-          style={{
-            backgroundColor: item.color,
-            height: 170,
-            marginBottom: 10,
-            borderRadius: 15,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text style={styles.name}>
-            {item.name}: <Text style={styles.color}>{item.color}</Text>
-          </Text>
-        </View>
-      ))}
-    </View>
+    <Home />
   );
 }
