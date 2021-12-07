@@ -1,0 +1,1 @@
+@react-navigation/native react-native-screens react-native-safe-area-context @react-navigation/bottom-tabs @react-navigation/native-stack react-redux redux
