@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '11.0'
 
-target 'RN03' do
+target 'GameStore' do
   config = use_native_modules!
 
   use_react_native!(
@@ -12,7 +12,9 @@ target 'RN03' do
     :hermes_enabled => false
   )
 
-  target 'RN03Tests' do
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  target 'GameStoreTests' do
     inherit! :complete
     # Pods for testing
   end
