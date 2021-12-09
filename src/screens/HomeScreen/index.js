@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {View, StyleSheet, FlatList} from 'react-native';
 import {getRequestListGame} from '../../redux/thunks/gameThunkActions';
-import {BackgroundView, Text, GameItem} from '../../components';
+import {BackgroundView, Text, GameItem, Avatar} from '../../components';
 import {COLORS} from '../../themes/styles';
 
 function Home({listGame, getRequestListGame}) {
@@ -18,7 +18,7 @@ function Home({listGame, getRequestListGame}) {
             Hello <Text style={styles.fontBold}>CyberSoft</Text>
           </Text>
         </View>
-        <View style={styles.avatar}></View>
+        <Avatar />
       </View>
 
       <FlatList
@@ -26,11 +26,11 @@ function Home({listGame, getRequestListGame}) {
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => <GameItem game={item} />}
         ItemSeparatorComponent={() => <View style={{height: 70}} />}
-        contentContainerStyle={{ paddingBottom: 100}}
+        contentContainerStyle={{paddingBottom: 100}}
       />
     </BackgroundView>
   );
-};
+}
 
 const mapStatesToProps = state => ({
   listGame: state.gameReducer.listGame,
