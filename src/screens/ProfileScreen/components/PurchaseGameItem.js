@@ -3,13 +3,14 @@ import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Text} from '../../../components';
 import {navigate} from '../../../navigation';
+import {COLORS} from '../../../themes/styles';
 import {screenName} from '../../../utils/constants';
 
 export default function PurchaseGameItem({game}) {
   const {title, subTitle, icon, id, preview, backgroundColor} = game;
   return (
     <TouchableOpacity
-      onPress={navigate(screenName.detail, {id})}
+      onPress={() => navigate(screenName.detail, {id})}
       style={styles.container}>
       <Image
         resizeMode="cover"
@@ -18,10 +19,10 @@ export default function PurchaseGameItem({game}) {
       />
       <View style={styles.infoContainer}>
         <Text>{title}</Text>
-        <Text>623 Sales</Text>
+        <Text color={COLORS.gray}>623 Sales</Text>
       </View>
       <View style={styles.priceContainer}>
-        <Text>$346</Text>
+        <Text color={COLORS.lightPurple}>$346</Text>
       </View>
     </TouchableOpacity>
   );
@@ -45,4 +46,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
   },
+  saleText: {},
 });

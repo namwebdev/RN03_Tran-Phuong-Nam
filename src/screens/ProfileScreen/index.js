@@ -2,7 +2,7 @@ import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
 import {Avatar, BackgroundView, Text} from '../../components';
-import {COLORS, GAP} from '../../themes/styles';
+import {COLORS, FONT_SIZE, GAP} from '../../themes/styles';
 import PurchaseGameItem from './components/PurchaseGameItem';
 
 function Profile({listGame}) {
@@ -10,7 +10,7 @@ function Profile({listGame}) {
     <BackgroundView edges={['top']}>
       <View style={styles.topContainer}>
         <Avatar size={100} />
-        <Text title>CyberSoft</Text>
+        <Text title style={styles.headerText}>CyberSoft</Text>
 
         <View style={styles.tagContainer}>
           <View style={[styles.tag, {backgroundColor: COLORS.lightPurple}]}>
@@ -24,14 +24,14 @@ function Profile({listGame}) {
         </View>
 
         <View style={styles.tagContainer}>
-          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+          <View style={{flexDirection: 'row', alignItems: 'flex-end', height: 30}}>
             <Text style={styles.numberTitle} title>
               250
             </Text>
             <Text color={COLORS.gray}> Games</Text>
           </View>
           <View style={{width: 20}}></View>
-          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+          <View style={{flexDirection: 'row', alignItems: 'flex-end', height: 30}}>
             <Text style={styles.numberTitle} title>
               {listGame.length}
             </Text>
@@ -41,13 +41,13 @@ function Profile({listGame}) {
       </View>
 
       <View style={{paddingHorizontal: GAP}}>
-        <Text>Puchased Games</Text>
+        <Text style={styles.purchaseGameTitle} color={COLORS.gray}>Puchased Games</Text>
         <FlatList
           data={listGame}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => <PurchaseGameItem game={item} />}
           ItemSeparatorComponent={() => <View style={{height: 20}} />}
-          contentContainerStyle={{paddingBottom: 300}}
+          contentContainerStyle={{paddingBottom: 360}}
         />
       </View>
     </BackgroundView>
@@ -67,11 +67,16 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 20,
   },
+  headerText: {
+    fontSize: FONT_SIZE.lg,
+    marginTop: 10,
+    marginBottom: 15,
+  },
   tagContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 18,
   },
   tag: {
     marginHorizontal: 8,
@@ -80,6 +85,11 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   numberTitle: {
-    fontSize: 26,
+    fontSize: FONT_SIZE.xl,
   },
+  purchaseGameTitle: {
+    fontSize: FONT_SIZE.lg,
+    textAlign: 'center',
+    marginBottom: 20,
+  }
 });

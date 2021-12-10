@@ -1,29 +1,38 @@
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import {View, Image, TouchableOpacity, FlatList} from 'react-native';
 import {getRequestGameDetail} from '../../redux/thunks/gameThunkActions';
 import {BackgroundView, Text} from '../../components';
 import styles from './styles.detail';
 import {COLORS} from '../../themes/styles';
 import AntIcon from 'react-native-vector-icons/AntDesign';
+import {
+  getGameDetailSelector,
+  getIsFetchSelector,
+} from '../../redux/selectors/game.selector';
 
-function Detail(props) {
-  const {route, game, navigation, isFetching, getRequestGameDetail} = props;
+export default function Detail({route, navigation}) {
+  const dispatch = useDispatch();
+  const game = useSelector(getGameDetailSelector);
+  const isFetching = useSelector(getIsFetchSelector);
+
   useEffect(() => {
     const id = route.params.id;
-    getRequestGameDetail(id);
+    dispatch(getRequestGameDetail(id));
   }, []);
 
   if (isFetching)
     return (
-      <BackgroundView edges={['bottom']}>
-        <Text title>Loading...</Text>
-      </BackgroundView>
+      <View>
+        <Text>Loading</Text>
+      </View>
     );
 
   return (
     <BackgroundView edges={['bottom']}>
-      <Image source={{uri: game.preview[0]}} style={styles.bannerContainer} />
+      {game.preview && (
+        <Image source={{uri: game.preview[0]}} style={styles.bannerContainer} />
+      )}
       <TouchableOpacity
         style={styles.iconBack}
         onPress={() => navigation.goBack()}>
@@ -65,14 +74,3 @@ function Detail(props) {
     </BackgroundView>
   );
 }
-
-const mapStateToProps = state => ({
-  game: state.gameReducer.gameDetail,
-  isFetching: state.gameReducer.isFetching,
-});
-
-const mapDispatchToProps = dispatch => ({
-  getRequestGameDetail: id => dispatch(getRequestGameDetail(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Detail);

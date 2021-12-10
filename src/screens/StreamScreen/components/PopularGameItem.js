@@ -8,7 +8,7 @@ export default function PopularGameItem({game}) {
   const {title, subTitle, icon, id, preview, backgroundColor} = game;
 
   return (
-    <TouchableOpacity onPress={() => {}}>
+    <TouchableOpacity onPress={() => navigate(screenName.detail, {id})}>
       <Image source={{uri: preview[0]}} style={styles.gameImage} />
     </TouchableOpacity>
   );
