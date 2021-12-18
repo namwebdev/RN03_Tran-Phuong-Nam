@@ -23,3 +23,10 @@ export const FONT_SIZE = {
   xs: 12,
   xxs: 10
 };
+
+export const FONT_STYLE = {
+  black: 'Lato-Black',
+  bold: 'Lato-Bold',
+  normal: 'Lato-Regular',
+  italic: 'Lato-Italic'
+};

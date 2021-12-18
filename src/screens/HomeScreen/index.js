@@ -27,7 +27,7 @@ export default function Home() {
         <TouchableOpacity
           key={index}
           onPress={() => navigate(screenName.detail, {id: item.id})}>
-          <Text bold>{item.name}</Text>
+          <Text>{item.name}</Text>
         </TouchableOpacity>
       ))}
     </View>

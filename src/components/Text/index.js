@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text as RNText, StyleSheet} from 'react-native';
-import {COLORS, FONT_SIZE} from '../../themes/styles';
+import {COLORS, FONT_SIZE, FONT_STYLE} from '../../themes/styles';
 
 export default function Text(props) {
   const {
@@ -8,6 +8,8 @@ export default function Text(props) {
     children,
     style,
     bold,
+    italic,
+    black,
     xxxl,
     xxl,
     xl,
@@ -21,7 +23,7 @@ export default function Text(props) {
       {...props}
       style={[
         style,
-        styles.md,
+        styles.default,
         xxxl && styles.xxxl,
         xxl && styles.xxl,
         xl && styles.xl,
@@ -30,6 +32,8 @@ export default function Text(props) {
         xs && styles.xs,
         xxs && styles.xxs,
         bold && styles.bold,
+        italic && styles.italic,
+        black && styles.black,
         {color}
       ]}>
       {children}
@@ -38,6 +42,10 @@ export default function Text(props) {
 }
 
 const styles = StyleSheet.create({
+  default: {
+    fontFamily: FONT_STYLE.normal,
+    fontSize: FONT_SIZE.md
+  },
   xxxl: {
     fontSize: FONT_SIZE.xxxl
   },
@@ -50,9 +58,6 @@ const styles = StyleSheet.create({
   lg: {
     fontSize: FONT_SIZE.lg
   },
-  md: {
-    fontSize: FONT_SIZE.md
-  },
   sm: {
     fontSize: FONT_SIZE.sm
   },
@@ -63,6 +68,12 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.xxs
   },
   bold: {
-    fontWeight: 'bold'
+    fontFamily: FONT_STYLE.bold
+  },
+  italic: {
+    fontFamily: FONT_STYLE.italic
+  },
+  black: {
+    fontFamily: FONT_STYLE.black
   }
 });
