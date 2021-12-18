@@ -8,16 +8,18 @@ export const COLORS = {
   gray: '#bbbbbb',
   darkGray: '#404040',
   opacityBlack: 'rgba(0,0,0,0.5)',
-  opacityWhite: 'rgba(255,255,255,0.5)',
+  opacityWhite: 'rgba(255,255,255,0.5)'
 };
 
 export const GAP = 15;
 
 export const FONT_SIZE = {
-  xxl: 30,
-  xl: 24,
-  lg: 18,
+  xxxl: 30,
+  xxl: 26,
+  xl: 22,
+  lg: 20,
   md: 16,
   sm: 14,
   xs: 12,
+  xxs: 10
 };

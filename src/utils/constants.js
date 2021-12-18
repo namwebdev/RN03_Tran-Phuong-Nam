@@ -1,8 +1,8 @@
 export const screenName = {
-    HomeTab: 'HomeTab',
-    home: 'Home',
-    profile: 'Profile',
-    stream: 'Stream',
-    detail: 'Detail',
-  };
-  
+  HomeTab: 'HomeTab',
+  home: 'Home',
+  profile: 'Profile',
+  cart: 'Cart',
+  detail: 'Detail',
+  signIn: 'SignIn'
+};

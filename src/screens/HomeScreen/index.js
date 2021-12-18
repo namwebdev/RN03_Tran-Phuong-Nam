@@ -1,66 +1,35 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
-import {View, StyleSheet, FlatList} from 'react-native';
-import {getRequestListGame} from '../../redux/thunks/gameThunkActions';
-import {BackgroundView, Text, GameItem, Avatar} from '../../components';
-import {COLORS} from '../../themes/styles';
+import {View, TouchableOpacity} from 'react-native';
+import {Text} from '../../components';
+import useProduct from '../../hooks/useProduct';
+import {screenName} from '../../utils/constants';
 
-function Home({listGame, getRequestListGame}) {
+export default function Home() {
+  const {listProduct, isFetching, dispatchListProduct} = useProduct();
+  const {navigate} = useNavigation();
+
   useEffect(() => {
-    getRequestListGame();
+    dispatchListProduct();
   }, []);
 
-  return (
-    <BackgroundView edges={['top']}>
-      <View style={styles.headerContainer}>
-        <View>
-          <Text style={styles.headerText}>
-            Hello <Text style={styles.fontBold}>CyberSoft</Text>
-          </Text>
-        </View>
-        <Avatar />
-      </View>
+  if (isFetching) return <Text>Loading...</Text>;
 
-      <FlatList
-        data={listGame}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item}) => <GameItem game={item} />}
-        ItemSeparatorComponent={() => <View style={{height: 70}} />}
-        contentContainerStyle={{paddingBottom: 100}}
-      />
-    </BackgroundView>
+  return (
+    <View>
+      <TouchableOpacity
+        onPress={() => {
+          navigate(screenName.signIn);
+        }}>
+        <Text>Login</Text>
+      </TouchableOpacity>
+      {listProduct.map((item, index) => (
+        <TouchableOpacity
+          key={index}
+          onPress={() => navigate(screenName.detail, {id: item.id})}>
+          <Text bold>{item.name}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 }
-
-const mapStatesToProps = state => ({
-  listGame: state.gameReducer.listGame,
-  isFetching: state.gameReducer.isFetching,
-});
-
-const mapDispatchToProps = dispatch => ({
-  getRequestListGame: () => dispatch(getRequestListGame()),
-});
-
-export default connect(mapStatesToProps, mapDispatchToProps)(Home);
-
-const styles = StyleSheet.create({
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 10,
-    marginBottom: 15,
-    marginTop: 10
-  },
-  headerText: {
-    fontSize: 30,
-  },
-  fontBold: {
-    fontWeight: '800',
-  },
-  avatar: {
-    backgroundColor: COLORS.lightPurple,
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-  },
-});
