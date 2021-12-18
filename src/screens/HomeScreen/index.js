@@ -1,7 +1,7 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import {Text} from '../../components';
+import useNavigation from '../../hooks/useNavigation';
 import useProduct from '../../hooks/useProduct';
 import {screenName} from '../../utils/constants';
 

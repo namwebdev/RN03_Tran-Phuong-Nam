@@ -4,5 +4,6 @@ export const screenName = {
   profile: 'Profile',
   cart: 'Cart',
   detail: 'Detail',
-  signIn: 'SignIn'
+  signIn: 'SignIn',
+  signUp: 'SignUp',
 };
