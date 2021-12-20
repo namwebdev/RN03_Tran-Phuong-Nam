@@ -1,6 +1,10 @@
 import {store} from '..';
 import productApi from '../../api/product';
-import {getListProduct, getProductDetail} from '../actions/productAction';
+import {
+  getCategories,
+  getListProduct,
+  getProductDetail
+} from '../actions/productAction';
 
 export const getRequestListProduct = () => {
   const {listProduct} = store.getState().productReducer;
@@ -12,6 +16,20 @@ export const getRequestListProduct = () => {
       dispatch(getListProduct(content));
     } catch (e) {
       console.error('getRequestListProduct', e);
+    }
+  };
+};
+
+export const getRequestCategories = () => {
+  const {categories} = store.getState().productReducer;
+  if (categories.length > 0) return () => {};
+
+  return async dispatch => {
+    try {
+      const {content} = await productApi.getCategories();
+      dispatch(getCategories(content));
+    } catch (e) {
+      console.error('getCategories', e);
     }
   };
 };

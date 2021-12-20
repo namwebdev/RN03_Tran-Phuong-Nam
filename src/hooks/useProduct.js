@@ -1,11 +1,13 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  getProductsByCategory,
+  getRequestCategories,
   getRequestListProduct,
   getRequestProductDetail
 } from '../redux/thunks/productThunkAction';
 
 export default function useProduct(id) {
-  const {listProduct, listProductDetail, isFetching} = useSelector(
+  const {listProduct, listProductDetail, categories, isFetching} = useSelector(
     state => state.productReducer
   );
   const dispatch = useDispatch();
@@ -14,14 +16,19 @@ export default function useProduct(id) {
   const dispatchListProduct = () => {
     dispatch(getRequestListProduct());
   };
+  const dispatchCategories = () => {
+    dispatch(getRequestCategories());
+  };
   const dispatchProductDetail = id => {
     dispatch(getRequestProductDetail(id));
   };
   return {
     listProduct,
     product,
+    categories,
     isFetching,
     dispatchListProduct,
-    dispatchProductDetail
+    dispatchCategories,
+    dispatchProductDetail,
   };
 }

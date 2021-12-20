@@ -25,7 +25,7 @@ const productApi = {
     return axiosClient.get(productApiURL('getbyid'), {params: {id}});
   },
 
-  getCategory: () => {
+  getCategories: () => {
     return axiosClient.get(productApiURL('getAllCategory'));
   },
   getProductByCategory: categoryId => {

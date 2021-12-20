@@ -8,8 +8,7 @@ export const getRequestProfile = () => {
       const {content} = await userApi.getProfile();
       dispatch(getProfile(content));
     } catch (e) {
-      if (JSON.stringify(error).status === 401)
-        await AsyncStorage.removeItem('token');
+      await AsyncStorage.removeItem('token');
       throw e;
     }
   };

@@ -1,3 +1,8 @@
+import {Dimensions} from 'react-native';
+
+export const SCREEN_WIDTH = Dimensions.get('window').width;
+export const SCREEN_HEIGTH = Dimensions.get('window').height;
+
 export const COLORS = {
   lightBack: '#343434',
   lightPurple: '#819ee5',
@@ -6,6 +11,7 @@ export const COLORS = {
   white: '#ffffff',
   black: '#000000',
   gray: '#bbbbbb',
+  lightGray: '#f9f9f9',
   darkGray: '#404040',
   opacityBlack: 'rgba(0,0,0,0.5)',
   opacityWhite: 'rgba(255,255,255,0.5)'
