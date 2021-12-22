@@ -1,5 +1,5 @@
 import {useSelector, useDispatch} from 'react-redux';
-import {getRequestProfile} from '../redux/thunks/userThunkAction';
+import {getRequestProfile, logout} from '../redux/thunks/userThunkAction';
 
 export default function useUser() {
   const {user, isLogin, isFetching} = useSelector(state => state.userReducer);
@@ -8,6 +8,9 @@ export default function useUser() {
   const dispatchProfile = () => {
     dispatch(getRequestProfile());
   };
+  const dispatchLogout = () => {
+    dispatch(logout());
+  };
 
-  return {user, isLogin, isFetching, dispatchProfile};
+  return {user, isLogin, isFetching, dispatchProfile, dispatchLogout};
 }

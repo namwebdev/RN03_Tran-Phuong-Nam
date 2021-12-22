@@ -1,6 +1,6 @@
 import userApi from '../../api/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getProfile} from '../actions/userAction';
+import {getProfile, logout as logoutAction} from '../actions/userAction';
 
 export const getRequestProfile = () => {
   return async dispatch => {
@@ -9,6 +9,17 @@ export const getRequestProfile = () => {
       dispatch(getProfile(content));
     } catch (e) {
       await AsyncStorage.removeItem('token');
+      throw e;
+    }
+  };
+};
+
+export const logout = () => {
+  return async dispatch => {
+    try {
+      await AsyncStorage.removeItem('token');
+      dispatch(logoutAction());
+    } catch (e) {
       throw e;
     }
   };

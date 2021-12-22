@@ -14,7 +14,8 @@ export const COLORS = {
   lightGray: '#f9f9f9',
   darkGray: '#404040',
   opacityBlack: 'rgba(0,0,0,0.5)',
-  opacityWhite: 'rgba(255,255,255,0.5)'
+  opacityWhite: 'rgba(255,255,255,0.5)',
+  red: "#d63031"
 };
 
 export const GAP = 15;

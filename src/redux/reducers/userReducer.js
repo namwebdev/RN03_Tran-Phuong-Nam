@@ -1,4 +1,4 @@
-import {GET_PROFILE} from '../actions/userAction';
+import {GET_PROFILE, LOGOUT} from '../actions/userAction';
 
 const initialState = {
   user: {},
@@ -10,6 +10,8 @@ const userReducer = (state = initialState, {type, payload}) => {
   switch (type) {
     case GET_PROFILE:
       return {...state, user: payload, isLogin: true, isFetching: false};
+    case LOGOUT:
+      return {...state, user: {}, isLogin: false};
     default:
       return state;
   }
