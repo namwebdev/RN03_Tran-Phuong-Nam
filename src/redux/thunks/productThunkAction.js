@@ -1,5 +1,5 @@
 import {store} from '..';
-import productApi from '../../api/product';
+import {getProducts, getProductById} from '../../api/product';
 import {getListProduct, getProductDetail} from '../actions/productAction';
 
 export const getRequestListProduct = () => {
@@ -8,7 +8,7 @@ export const getRequestListProduct = () => {
 
   return async dispatch => {
     try {
-      const {content} = await productApi.getProducts();
+      const {content} = await getProducts();
       dispatch(getListProduct(content));
     } catch (e) {
       console.error('getRequestListProduct', e);
@@ -23,7 +23,7 @@ export const getRequestProductDetail = id => {
 
   return async dispatch => {
     try {
-      const {content} = await productApi.getProductById(id);
+      const {content} = await getProductById(id);
       dispatch(getProductDetail(content));
     } catch (e) {
       console.error('getRequestProductDetail', e);
