@@ -1,10 +1,10 @@
 import {store} from '..';
-import productApi from '../../api/product';
 import {
   getCategories,
   getListProduct,
   getProductDetail
 } from '../actions/productAction';
+import {getProducts, getProductById} from '../../api/product';
 
 export const getRequestListProduct = () => {
   const {listProduct} = store.getState().productReducer;
@@ -12,7 +12,7 @@ export const getRequestListProduct = () => {
 
   return async dispatch => {
     try {
-      const {content} = await productApi.getProducts();
+      const {content} = await getProducts();
       dispatch(getListProduct(content));
     } catch (e) {
       console.error('getRequestListProduct', e);
@@ -41,7 +41,7 @@ export const getRequestProductDetail = id => {
 
   return async dispatch => {
     try {
-      const {content} = await productApi.getProductById(id);
+      const {content} = await getProductById(id);
       dispatch(getProductDetail(content));
     } catch (e) {
       console.error('getRequestProductDetail', e);
