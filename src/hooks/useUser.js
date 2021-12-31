@@ -1,4 +1,5 @@
 import {useSelector, useDispatch} from 'react-redux';
+import {initOrders} from '../redux/actions/cartAction';
 import {getRequestProfile, logout} from '../redux/thunks/userThunkAction';
 
 export default function useUser() {
@@ -11,6 +12,11 @@ export default function useUser() {
   const dispatchLogout = () => {
     dispatch(logout());
   };
-
-  return {user, isLogin, isFetching, dispatchProfile, dispatchLogout};
+  return {
+    user,
+    isLogin,
+    isFetching,
+    dispatchProfile,
+    dispatchLogout
+  };
 }

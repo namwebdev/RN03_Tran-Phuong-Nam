@@ -9,13 +9,13 @@ const userApi = {
     return axiosClient.post(userApiUrl('signin'), {email, password});
   },
   /**
-  * @param {*} formData 
-  * "email": "string",
-  * "password": "string",
-  * "name": "string",
-  * "gender": true,
-  * "phone": "string"
-  */
+   * @param {*} formData
+   * "email": "string",
+   * "password": "string",
+   * "name": "string",
+   * "gender": true,
+   * "phone": "string"
+   */
   signUp: formData => {
     return axiosClient.post(userApiUrl('signup'), formData);
   },
@@ -27,14 +27,14 @@ const userApi = {
     return axiosClient.post(userApiUrl('getProfile'));
   },
   /**
-  * @param {*} formData 
-  * "email": "string",
-  * "password": "string",
-  * "name": "string",
-  * "gender": true,
-  * "phone": "string"
-  */
-  updateProfile:  formData => {
+   * @param {*} formData
+   * "email": "string",
+   * "password": "string",
+   * "name": "string",
+   * "gender": true,
+   * "phone": "string"
+   */
+  updateProfile: formData => {
     return axiosClient.post(userApiUrl('updateProfile'), formData);
   },
   changePassword: newPassword => {
@@ -42,15 +42,15 @@ const userApi = {
   },
 
   /**
-  * @param {*} formData 
-  * "orderDetail": [
-  *  {
-  *   "productId": "string",
-  *   "quantity": "number"
-  *  }
-  * ],
-  * "email": "string"
-  */
+   * @param {*} formData
+   * "orderDetail": [
+   *  {
+   *   "productId": "string",
+   *   "quantity": "number"
+   *  }
+   * ],
+   * "email": "string"
+   */
   order: formData => {
     return axiosClient.post(userApiUrl('order'), formData);
   },
@@ -62,10 +62,10 @@ const userApi = {
   },
 
   like: productId => {
-    return axiosClient.get(userApiUrl('like'),  {productId});
+    return axiosClient.get(userApiUrl('like'), {params: {productId}});
   },
   unLike: productId => {
-    return axiosClient.get(userApiUrl('unlike'),  {productId});
+    return axiosClient.get(userApiUrl('unlike'), {params: {productId}});
   },
   getFavoriteProduct: () => {
     return axiosClient.get(userApiUrl('getproductfavorite'));

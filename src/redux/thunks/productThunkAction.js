@@ -2,9 +2,11 @@ import {store} from '..';
 import {
   getCategories,
   getListProduct,
+  getListProductFavo,
   getProductDetail
 } from '../actions/productAction';
-import {getProducts, getProductById} from '../../api/product';
+import productApi from '../../api/product';
+import userApi from '../../api/user';
 
 export const getRequestListProduct = () => {
   const {listProduct} = store.getState().productReducer;
@@ -12,7 +14,7 @@ export const getRequestListProduct = () => {
 
   return async dispatch => {
     try {
-      const {content} = await getProducts();
+      const {content} = await productApi.getProducts();
       dispatch(getListProduct(content));
     } catch (e) {
       console.error('getRequestListProduct', e);
@@ -41,10 +43,21 @@ export const getRequestProductDetail = id => {
 
   return async dispatch => {
     try {
-      const {content} = await getProductById(id);
+      const {content} = await productApi.getProductById(id);
       dispatch(getProductDetail(content));
     } catch (e) {
       console.error('getRequestProductDetail', e);
+    }
+  };
+};
+
+export const getFavoriteProducts = () => {
+  return async dispatch => {
+    try {
+      const {content} = await userApi.getFavoriteProduct();
+      if (content) dispatch(getListProductFavo(content.productsFavorite));
+    } catch (e) {
+      console.error('getFavoriteProducts', e);
     }
   };
 };

@@ -1,9 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {View, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList} from 'react-native';
 import {Avatar, BackgroundView, ProductItem, Text} from '../../components';
-import useNavigation from '../../hooks/useNavigation';
 import useProduct from '../../hooks/useProduct';
-import {screenName} from '../../utils/constants';
 import CategoryItem from './components/CategoryItem';
 
 export default function Home() {
@@ -12,10 +10,8 @@ export default function Home() {
     categories,
     isFetching,
     dispatchListProduct,
-    dispatchCategories,
-    dispatchProductsByCategory
+    dispatchCategories
   } = useProduct();
-  const {navigate} = useNavigation();
   const [activeCate, setActiveCate] = useState(null);
   const [products, setProducts] = useState([]);
   const productsRef = useRef();

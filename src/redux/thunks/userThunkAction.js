@@ -1,12 +1,22 @@
 import userApi from '../../api/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getProfile, logout as logoutAction} from '../actions/userAction';
+import {
+  fetchingData,
+  getProfile,
+  logout as logoutAction
+} from '../actions/userAction';
+import {initOrders} from '../actions/cartAction';
+import {getFavoriteProducts} from './productThunkAction';
 
-export const getRequestProfile = () => {
+export const getRequestProfile = (isGetFavoProduct = true) => {
   return async dispatch => {
+    dispatch(fetchingData());
     try {
       const {content} = await userApi.getProfile();
       dispatch(getProfile(content));
+      if (content?.ordersHistory)
+        dispatch(initOrders(content.ordersHistory.reverse()));
+      if (isGetFavoProduct) dispatch(getFavoriteProducts());
     } catch (e) {
       await AsyncStorage.removeItem('token');
       throw e;

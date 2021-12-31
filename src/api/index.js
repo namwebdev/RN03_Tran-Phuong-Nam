@@ -24,7 +24,8 @@ axiosClient.interceptors.response.use(
     if (response && response.data) return response.data;
     return response;
   },
-  error => {
+  async error => {
+    if (error.response.status === null) await AsyncStorage.removeItem('token');
     throw error;
   }
 );

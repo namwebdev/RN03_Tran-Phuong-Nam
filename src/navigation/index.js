@@ -6,7 +6,8 @@ import {
   DetailScreen,
   ProfileScreen,
   CartScreen,
-  SignInScreen
+  SignInScreen,
+  OrderDetailScreen
 } from '../screens';
 import {screenName} from '../utils/constants';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
@@ -64,6 +65,7 @@ const RootStack = () => (
     <Stack.Screen name={screenName.home} component={RootTab} />
     <Stack.Screen name={screenName.detail} component={DetailScreen} />
     <Stack.Screen name={screenName.signIn} component={SignInScreen} />
+    <Stack.Screen name={screenName.orderDetail} component={OrderDetailScreen} />
   </Stack.Navigator>
 );
 

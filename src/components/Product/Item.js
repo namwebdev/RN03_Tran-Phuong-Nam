@@ -3,9 +3,16 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import CategoryItem from './CategoryItem';
 import useNavigation from '../../hooks/useNavigation';
 import {screenName} from '../../utils/constants';
+import {Text} from '..';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import FavoriteButton from './FavoriteButton';
 
-export default function ProductItem({product}) {
-  const {id, name, price, categories, image} = product;
+export default function ProductItem({
+  product,
+  isShowCate = true,
+  isShowFavoBtn = false
+}) {
+  const {id, categories, name, image} = product;
   const {navigate} = useNavigation();
   return (
     <TouchableOpacity
@@ -13,17 +20,22 @@ export default function ProductItem({product}) {
       style={styles.container}>
       <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
         <Image source={{uri: image}} style={styles.image} />
-
+        <Text>{name}</Text>
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             marginBottom: 10
           }}>
-          {JSON.parse(categories).map(({category}) => (
-            <CategoryItem key={category} category={category} />
-          ))}
+          {isShowCate && (
+            <>
+              {JSON.parse(categories).map(({category}) => (
+                <CategoryItem key={category} category={category} />
+              ))}
+            </>
+          )}
         </View>
+        {isShowFavoBtn && <FavoriteButton product={product} />}
       </View>
     </TouchableOpacity>
   );

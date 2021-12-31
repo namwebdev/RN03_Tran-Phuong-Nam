@@ -10,7 +10,7 @@ import useUser from '../../hooks/useUser';
 import {AuthContainer, Text, Input} from '../../components';
 import {COLORS} from '../../themes/styles';
 
-export default function SignIn() {
+export default function SignIn({route}) {
   const {isLogin} = useUser();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState('');
@@ -26,6 +26,12 @@ export default function SignIn() {
         if (token) {
           await AsyncStorage.setItem('token', token);
           dispatch(getRequestProfile());
+
+          if (route.params?.screen) {
+            const {screen, id} = route.params;
+            navigate(screen, id && {id});
+            return;
+          }
           navigate(screenName.home);
         }
       } catch (e) {
