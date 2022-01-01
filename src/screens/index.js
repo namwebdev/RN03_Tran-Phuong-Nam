@@ -4,6 +4,8 @@ import ProfileScreen from './ProfileScreen';
 import DetailScreen from './DetailScreen';
 import SignInScreen from './SignInScreen';
 import OrderDetailScreen from './OrderDetailScreen';
+import SignUpScreen from './SignUpScreen';
+import EditProfileScreen from './EditProfileScreen';
 
 export {
   HomeScreen,
@@ -11,5 +13,7 @@ export {
   ProfileScreen,
   DetailScreen,
   SignInScreen,
-  OrderDetailScreen
+  OrderDetailScreen,
+  SignUpScreen,
+  EditProfileScreen
 };

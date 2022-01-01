@@ -39,6 +39,8 @@ const inputReducer = (state, action) => {
 };
 
 const Input = props => {
+  const {onInputChange} = props;
+
   const textAnim = useRef(new Animated.Value(0)).current;
 
   const handleAnimation = () => {
@@ -76,41 +78,23 @@ const Input = props => {
     touched: false
   });
 
-  const {onInputChange, id} = props;
-
   useEffect(() => {
-    if (inputState.touched) {
-      onInputChange(inputState.value, inputState.isValid);
-    }
+    if (inputState.touched) onInputChange(inputState.value, inputState.isValid);
   }, [inputState, onInputChange]);
 
   const textChangeHandler = text => {
     let isValid = true;
-    if (props.required && text.trim().length === 0) {
-      isValid = false;
-    }
-    if (props.email && !REGEX_EMAIL.test(text)) {
-      isValid = false;
-    }
-    if (props.min != null && +text < props.min) {
-      isValid = false;
-    }
-    if (props.max != null && +text > props.max) {
-      isValid = false;
-    }
-    if (props.minLength != null && text.length < props.minLength) {
-      isValid = false;
-    }
-    if (props.contain && !text.includes(props.contain)) {
-      isValid = false;
-    }
-    if (props.onlyEnglish && !/^[a-zA-Z ]+$/.test(text)) {
-      isValid = false;
-    }
-    if (props.onlyLang && !/^[א-תa-zA-Z  ]+$/.test(text)) {
-      isValid = false;
-    }
+    const {required, email, minLength} = props;
 
+    if (required && text.trim().length === 0) {
+      isValid = false;
+    }
+    if (email && !REGEX_EMAIL.test(text)) {
+      isValid = false;
+    }
+    if (minLength !== null && text.length < minLength) {
+      isValid = false;
+    }
     dispatch({type: INPUT_CHANGE, value: text, isValid});
   };
 
@@ -118,90 +102,38 @@ const Input = props => {
     dispatch({type: INPUT_BLUR});
   };
 
-  if (props.outlined) {
-    return (
-      <Animated.View style={[styles.formControl, props.formControlStyle]}>
-        <Animated.Text
-          style={[
-            styles.label,
-            (inputState.touched || inputState.focus) && styles.endLabel,
-            props.initialValue ? styles.basic : animatedStyle,
-            !inputState.isValid && inputState.touched && styles.redColor,
-            props.borderColor && inputState.focus && {color: props.borderColor},
-            props.right && styles.labelRight,
-            props.labelStyle
-          ]}>
-          {props.label}
-        </Animated.Text>
-        <TextInput
-          onSubmitEditing={text => (props.submit ? props.submit(text) : null)}
-          onFocus={() => {
-            dispatch({type: INPUT_FOCUSE, focus: true});
-            handleAnimation();
-          }}
-          textAlignVertical="top"
-          {...props}
-          style={[
-            styles.input,
-            {
-              borderColor:
-                inputState.isValid || !inputState.touched
-                  ? '#ccc'
-                  : 'rgb(211,55,83)'
-            },
-            inputState.focus &&
-              props.borderColor && {borderColor: props.borderColor},
-            props.inputStyle
-          ]}
-          value={props.value || inputState.value}
-          onChangeText={textChangeHandler}
-          onBlur={lostFocusHandler}
-        />
-        {!inputState.isValid && inputState.touched && props.errorText && (
-          <View style={[styles.errorContainer, props.errorContainerStyle]}>
-            <Text
-              style={[
-                styles.errorText,
-                props.right && styles.errorTxtRight,
-                props.borderColor &&
-                  inputState.focus && {color: props.borderColor},
-                props.errorText
-              ]}>
-              {props.errorText}
-            </Text>
-          </View>
-        )}
-      </Animated.View>
-    );
-  }
   return (
-    <View style={[styles.formControl, props.formControl]}>
-      <Text
+    <Animated.View style={[styles.formControl, props.formControlStyle]}>
+      <Animated.Text
         style={[
-          styles.lineLabel,
-          props.right && styles.lineLabelRight,
+          styles.label,
+          (inputState.touched || inputState.focus) && styles.endLabel,
+          props.initialValue ? styles.basic : animatedStyle,
+          !inputState.isValid && inputState.touched && styles.redColor,
+          props.borderColor && inputState.focus && {color: props.borderColor},
+          props.right && styles.labelRight,
           props.labelStyle
         ]}>
         {props.label}
-        {' :'}
-      </Text>
+      </Animated.Text>
       <TextInput
+        onSubmitEditing={text => (props.submit ? props.submit(text) : null)}
         onFocus={() => {
           dispatch({type: INPUT_FOCUSE, focus: true});
+          handleAnimation();
         }}
-        onSubmitEditing={text => (props.submit ? props.submit(text) : null)}
         textAlignVertical="top"
         {...props}
         style={[
-          styles.inputLine,
+          styles.input,
           {
-            borderBottomColor:
+            borderColor:
               inputState.isValid || !inputState.touched
                 ? '#ccc'
                 : 'rgb(211,55,83)'
           },
           inputState.focus &&
-            props.borderColor && {borderBottomColor: props.borderColor},
+            props.borderColor && {borderColor: props.borderColor},
           props.inputStyle
         ]}
         value={props.value || inputState.value}
@@ -209,18 +141,20 @@ const Input = props => {
         onBlur={lostFocusHandler}
       />
       {!inputState.isValid && inputState.touched && props.errorText && (
-        <View style={[styles.errorContainer, props.errorContainer]}>
+        <View style={[styles.errorContainer, props.errorContainerStyle]}>
           <Text
             style={[
               styles.errorText,
               props.right && styles.errorTxtRight,
+              props.borderColor &&
+                inputState.focus && {color: props.borderColor},
               props.errorText
             ]}>
             {props.errorText}
           </Text>
         </View>
       )}
-    </View>
+    </Animated.View>
   );
 };
 

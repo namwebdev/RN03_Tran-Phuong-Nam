@@ -14,13 +14,17 @@ export default function Profile() {
   const {favoProducts} = useProduct();
   const {navigate} = useNavigation();
   const logout = () => dispatchLogout();
-  console.log(favoProducts);
 
   if (!isLogin)
     return (
-      <TouchableOpacity onPress={() => navigate(screenName.signIn)}>
-        <Text>Login</Text>
-      </TouchableOpacity>
+      <>
+        <TouchableOpacity onPress={() => navigate(screenName.signIn)}>
+          <Text>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigate(screenName.signUp)}>
+          <Text>Sign Up</Text>
+        </TouchableOpacity>
+      </>
     );
 
   return (
@@ -31,9 +35,9 @@ export default function Profile() {
           <Text>Logout</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        {/* <TouchableOpacity onPress={() => navigate(screenName.editProfile)}>
           <Text>Edit Profile</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <View>
           <View>
@@ -46,9 +50,17 @@ export default function Profile() {
             ))}
           </ScrollView>
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{height: 200}}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{height: 200}}>
             {favoProducts.map((p, i) => (
-              <ProductItem key={i} product={p} isShowCate={false} isShowFavoBtn={true} />
+              <ProductItem
+                key={i}
+                product={p}
+                isShowCate={false}
+                isShowFavoBtn={true}
+              />
             ))}
           </ScrollView>
         </View>

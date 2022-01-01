@@ -7,7 +7,9 @@ import {
   ProfileScreen,
   CartScreen,
   SignInScreen,
-  OrderDetailScreen
+  OrderDetailScreen,
+  SignUpScreen,
+  EditProfileScreen
 } from '../screens';
 import {screenName} from '../utils/constants';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
@@ -66,6 +68,8 @@ const RootStack = () => (
     <Stack.Screen name={screenName.detail} component={DetailScreen} />
     <Stack.Screen name={screenName.signIn} component={SignInScreen} />
     <Stack.Screen name={screenName.orderDetail} component={OrderDetailScreen} />
+    <Stack.Screen name={screenName.editProfile} component={EditProfileScreen} />
+    <Stack.Screen name={screenName.signUp} component={SignUpScreen} />
   </Stack.Navigator>
 );
 

@@ -13,7 +13,7 @@ const userApi = {
    * "email": "string",
    * "password": "string",
    * "name": "string",
-   * "gender": true,
+   * "gender": boolean,
    * "phone": "string"
    */
   signUp: formData => {

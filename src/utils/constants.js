@@ -7,6 +7,7 @@ export const screenName = {
   signIn: 'SignIn',
   signUp: 'SignUp',
   orderDetail: 'OrderDetail',
+  editProfile: 'EditProfile'
 };
 
-export const REGEX_EMAIL = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+export const REGEX_EMAIL = /^[\w-\.]+@([\w-]+\.)+[\w-]$/g;

@@ -1,5 +1,4 @@
 import {useSelector, useDispatch} from 'react-redux';
-import {initOrders} from '../redux/actions/cartAction';
 import {getRequestProfile, logout} from '../redux/thunks/userThunkAction';
 
 export default function useUser() {

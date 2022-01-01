@@ -5,7 +5,7 @@ import {
   getProfile,
   logout as logoutAction
 } from '../actions/userAction';
-import {initOrders} from '../actions/cartAction';
+import {clearCart, initOrders} from '../actions/cartAction';
 import {getFavoriteProducts} from './productThunkAction';
 
 export const getRequestProfile = (isGetFavoProduct = true) => {
@@ -18,7 +18,7 @@ export const getRequestProfile = (isGetFavoProduct = true) => {
         dispatch(initOrders(content.ordersHistory.reverse()));
       if (isGetFavoProduct) dispatch(getFavoriteProducts());
     } catch (e) {
-      await AsyncStorage.removeItem('token');
+      await AsyncStorage.clear();
       throw e;
     }
   };
@@ -27,8 +27,9 @@ export const getRequestProfile = (isGetFavoProduct = true) => {
 export const logout = () => {
   return async dispatch => {
     try {
-      await AsyncStorage.removeItem('token');
+      await AsyncStorage.clear();
       dispatch(logoutAction());
+      dispatch(clearCart());
     } catch (e) {
       throw e;
     }

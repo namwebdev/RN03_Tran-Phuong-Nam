@@ -13,12 +13,12 @@ import {COLORS} from '../../themes/styles';
 export default function SignIn({route}) {
   const {isLogin} = useUser();
   const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(null);
   const {navigate} = useNavigation();
   const dispatch = useDispatch();
 
   const login = async () => {
-    const isValidate = email && REGEX_EMAIL.test(email) && password;
+    const isValidate = email && password;
     if (isValidate) {
       try {
         const res = await userApi.login(email, password);
@@ -39,7 +39,9 @@ export default function SignIn({route}) {
           Alert.alert(e.response.data.message);
         }
       }
+      return;
     }
+    Alert.alert('Please enter email and password');
   };
 
   useEffect(() => {
@@ -52,8 +54,7 @@ export default function SignIn({route}) {
         id="email"
         label="Email"
         required
-        email
-        errorText="Email is invalid"
+        errorText="Email is required"
         onInputChange={setEmail}
         outlined
         borderColor="blue"
@@ -78,13 +79,6 @@ export default function SignIn({route}) {
 }
 
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderColor: 'gray'
-  },
   loginBtn: {
     backgroundColor: 'blue',
     width: 60,
